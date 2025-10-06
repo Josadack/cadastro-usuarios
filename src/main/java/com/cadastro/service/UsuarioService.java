@@ -27,7 +27,7 @@ public class UsuarioService {
 
         Page<CadastroUser> usuarios = (nome == null || nome.isEmpty())
                 ? userRepository.findAll(pageable)
-                : userRepository.findByNomeContaining(nome, pageable);
+                : userRepository.findByNomeContainingIgnoreCase(nome, pageable);
 
         return usuarios
                 .map( us -> new UsuarioListDTO(us.getNome(), us.getFoto()));
