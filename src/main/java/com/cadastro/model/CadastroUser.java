@@ -15,6 +15,8 @@ public class CadastroUser {
 
     @Column(nullable = false, length=50)
     private String nome;
+
+    private Integer idade = 0;
     private String foto;
     @Column(unique = true)
     private String email;
@@ -37,6 +39,14 @@ public class CadastroUser {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public Integer getIdade() {
+        return idade;
+    }
+
+    public void setIdade(Integer idade) {
+        this.idade = idade;
     }
 
     public String getFoto() {

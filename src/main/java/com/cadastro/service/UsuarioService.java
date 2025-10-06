@@ -28,7 +28,7 @@ public class UsuarioService {
         user.setFoto(userDtos.foto());
         user.setEmail(userDtos.email());
         user.setTelefone(userDtos.telefone());
-
+        user.setIdade(userDtos.idade());
         CadastroUser salvo = userRepository.save(user);
         return new UsuarioResponseDTO(salvo);
     }
@@ -49,7 +49,7 @@ public class UsuarioService {
         CadastroUser usuario = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuário com ID " + id + " não encontrado!"));
 
-        return new UsuarioDetalheDTO(usuario.getNome(), usuario.getFoto(), usuario.getEmail(), usuario.getTelefone());
+        return new UsuarioDetalheDTO(usuario.getNome(), usuario.getFoto(), usuario.getEmail(), usuario.getTelefone(), usuario.getIdade());
     }
 
     //Atualizar usuario
@@ -61,6 +61,7 @@ public class UsuarioService {
                     userExistente.setFoto(user.getFoto());
                     userExistente.setEmail(user.getEmail());
                     userExistente.setTelefone(user.getTelefone());
+                    userExistente.setIdade(user.getIdade());
                     return userRepository.save(userExistente);
                 })
                 .orElseThrow(() -> new ResourceNotFoundException("Usuário com ID " + id + " não encontrado!"));
