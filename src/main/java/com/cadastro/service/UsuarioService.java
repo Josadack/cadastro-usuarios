@@ -2,10 +2,13 @@ package com.cadastro.service;
 
 import com.cadastro.dtos.UsuarioDetalheDTO;
 import com.cadastro.dtos.UsuarioListDTO;
+import com.cadastro.dtos.UsuarioRequestDTO;
+import com.cadastro.dtos.UsuarioResponseDTO;
 import com.cadastro.exception.ResourceNotFoundException;
 import com.cadastro.model.CadastroUser;
 import com.cadastro.repository.CadUserRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -15,11 +18,19 @@ import java.util.List;
 @Service
 public class UsuarioService {
 
+    @Autowired
     private CadUserRepository userRepository;
 
     //Criar Usuario
-    public CadastroUser criar(CadastroUser user){
-        return userRepository.save(user);
+    public UsuarioResponseDTO criar(UsuarioRequestDTO userDtos){
+        CadastroUser user = new CadastroUser();
+        user.setNome(userDtos.nome());
+        user.setFoto(userDtos.foto());
+        user.setEmail(userDtos.email());
+        user.setTelefone(userDtos.telefone());
+
+        CadastroUser salvo = userRepository.save(user);
+        return new UsuarioResponseDTO(salvo);
     }
 
     //Listar todos usuarios com os atributos do DTOS, com Paginação

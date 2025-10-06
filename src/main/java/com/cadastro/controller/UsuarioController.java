@@ -2,11 +2,14 @@ package com.cadastro.controller;
 
 import com.cadastro.dtos.UsuarioDetalheDTO;
 import com.cadastro.dtos.UsuarioListDTO;
+import com.cadastro.dtos.UsuarioRequestDTO;
+import com.cadastro.dtos.UsuarioResponseDTO;
 import com.cadastro.model.CadastroUser;
 import com.cadastro.service.UsuarioService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,8 +25,9 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public CadastroUser criar(CadastroUser newUser){
-        return usuarioService.criar(newUser);
+    public ResponseEntity<UsuarioResponseDTO> criar(@RequestBody UsuarioRequestDTO userDto){
+        UsuarioResponseDTO user = usuarioService.criar(userDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
     @GetMapping
