@@ -23,7 +23,7 @@ public class UsuarioService {
     }
 
     //Listar todos usuarios com os atributos do DTOS, com Paginação
-    public Page<UsuarioListDTO> listarTodos(Pageable pageable, String nome){
+    public Page<UsuarioListDTO> listarTodos(String nome, Pageable pageable){
 
         Page<CadastroUser> usuarios = (nome == null || nome.isEmpty())
                 ? userRepository.findAll(pageable)
